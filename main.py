@@ -45,5 +45,5 @@ if __name__ == "__main__":
 
     table = open_file(args.file_path)
 
-    print(get_year_stats(table))
-    print(get_most_mentioned_artist(table))
+    print('The amount of songs in each year:', get_year_stats(table))
+    print('The most mentioned artist in the dataset:', get_most_mentioned_artist(table))
