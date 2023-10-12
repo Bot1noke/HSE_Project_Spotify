@@ -9,13 +9,15 @@ def open_file(path: str) -> List[List[object]]:
     return df.values.tolist()
 
 
-def get_year_stats(table: List[List[object]]) -> Dict:
+def get_year_stats(table: List[List[object]], year = 2000) -> Dict:
     year_count = dict()
     for i in table:
-        if i[1] in year_count.keys():
-            year_count[i[1]] += 1
-        else:
-            year_count[i[1]] = 1
+        if int(i[1]) >= year:
+            if i[1] in year_count.keys():
+
+                year_count[i[1]] += 1
+            else:
+                year_count[i[1]] = 1
     return year_count
 
 
@@ -42,13 +44,13 @@ if __name__ == "__main__":
 
     parser.add_argument("-a", "--artist", action="store_true")
 
-    parser.add_argument("-y", "--year", action='store_true')
+    parser.add_argument("-y", "--year", type=int)
 
     args = parser.parse_args()
 
     table = open_file(args.file_path)
 
     if args.year:
-        print('The amount of songs in each year:', get_year_stats(table))
+        print('The amount of songs in each year:', get_year_stats(table, args.year))
     if args.artist:
         print('The most mentioned artist in the dataset:', get_most_mentioned_artist(table))
