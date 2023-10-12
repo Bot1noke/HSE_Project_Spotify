@@ -36,14 +36,19 @@ def get_most_mentioned_artist(table: List[List[object]]) -> str:
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="our cute spotify experience")
 
     parser.add_argument("file_path", type=str, help="input path to the table")
+
+    parser.add_argument("-a", "--artist", action="store_true")
+
+    parser.add_argument("-y", "--year", action='store_true')
 
     args = parser.parse_args()
 
     table = open_file(args.file_path)
 
-    print('The amount of songs in each year:', get_year_stats(table))
-    print('The most mentioned artist in the dataset:', get_most_mentioned_artist(table))
+    if args.year:
+        print('The amount of songs in each year:', get_year_stats(table))
+    if args.artist:
+        print('The most mentioned artist in the dataset:', get_most_mentioned_artist(table))
